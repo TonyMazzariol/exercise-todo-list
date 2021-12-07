@@ -12,7 +12,7 @@
     <div>
         <h2>User Story</h2>
         <form method="POST" action="get.php">
-            <input class="todo_text" type="text" name="todo_text">
+            <input class="todo_text" type="text" name="todo_text" autocomplete="off">
             <div>
                 <input formtarget="blank" type="submit" name="annuler" value="annuler">
                 <input type="submit" name="valider" value="valider">
