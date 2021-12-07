@@ -12,29 +12,53 @@
 
         $value = $_POST['todo_text'];
 
-        if(!isset($_GET['todo_text']) === true){
+        if(isset($_POST['todo_text']) === true){
             
-            $a = $mysqli->query("SELECT MAX(id) FROM todo_list");
-            $b = $a->fetch_assoc();
+            $max_id = $mysqli->query("SELECT MAX(id) FROM todo_list");
+
+            $new_id = 1 + intval(($max_id->fetch_assoc())['MAX(id)']);
+
+            $mysqli->query("INSERT INTO todo_list (todo_text, id) VALUES ('$value', '$new_id')");
            
-            $id = 1 + intval($b['MAX(id)']);
+            echo"pass <br>";
+        } else {
+            echo "error <br>";
+        }
 
+        $all = $mysqli->query('SELECT * FROM todo_list');
+        // var_dump($all);
+        // $all = $all->fetch_array();
+        var_dump($all);
+        echo "<table>";
+        foreach ($all as $temp) {
+            echo " 
+            <tr>
+                <th>{$temp['id']}</th>
+                <th>{$temp['todo_text']}</th>
+                <th><form method='GET' action=''>
+                <input type='submit' name='Supp' value='Supprimer'>
+                </form>
+            
+                </th>
+            </tr>
+            ";     
+        };
+        echo "</table>";
+        
+        echo "<br>
+        <form method='GET' action='index.php'>
+            <input type='submit' name='SuppAll' value='Supprimer tout'>
+        </form>
+        ";
 
-            $mysqli->query("INSERT INTO todo_list (todo_text, id) VALUES ('$value', '$id')");
-            echo"pass";
- 
-} else {
-    echo "error";
-}
- echo "###"
-
-// $a = $mysqli->query('SELECT * FROM todo_list');
-
-// foreach ($a as $temp){
-//     print_r($temp);
-// }
-
-
+        if(isset($_GET['SuppAll']) === true){
+            $mysqli->query("DELETE FROM todo_list");
+            echo "ERASE ALL";
+        };
+        if(isset($_GET['Supp']) === true){
+            $mysqli->query("DELETE FROM todo_list WHERE id = {$temp['id']}");
+            echo "ERASED";
+        }
 ?>
 
 <!-- <h2>Films Name</h2>

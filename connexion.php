@@ -5,7 +5,7 @@ error_reporting(E_ALL);
 
 $servername = "localhost";
 $username = "tony";
-$password = "12";
+$password = "1234";
 $database = "database_todo_exo";
 
 $mysqli = new mysqli($servername, $username, $password, $database);
