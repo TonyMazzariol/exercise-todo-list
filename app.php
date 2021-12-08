@@ -13,13 +13,16 @@
     <?php
         require'connexion.php';
         if(isset($_GET['todo_text']) === true){
+            $id = 1;
             $value = $_GET['todo_text'];
-
-            $max_id = $mysqli->query("SELECT MAX(id) FROM todo_list");
-
-            $new_id = 1 + intval(($max_id->fetch_assoc())['MAX(id)']);
-
-            $mysqli->query("INSERT INTO todo_list (todo_text, id) VALUES ('$value', '$new_id')");  
+            $all = $mysqli->query('SELECT id FROM todo_list');
+            foreach ($all as $temp) {
+                if ($temp['id'] != $id) {
+                    break;
+                }
+                $id++ ;
+            }
+            $mysqli->query("INSERT INTO todo_list (todo_text, id) VALUES ('$value', '$id')");  
             header("Location: app.php");
         }
 
