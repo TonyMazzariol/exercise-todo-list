@@ -2,10 +2,32 @@ body {
     box-sizing: content-box;
 }
 
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+
+nav form {
+    display: flex;
+}
+
+nav div input {
+    width: 200px;
+}
+
 .todo_text {
-    width: 400px; 
     margin: 1rem;
     padding: 1rem;
+}
+
+tr .text {
+    width: 60%;
+}
+
+.list_button {
+    display: flex;
+    width: 200px;
 }
 
 a {
@@ -40,8 +62,7 @@ table * {
 }
 
 table {
-    margin: 1rem;
-    width: 80%;
+    width: 100%;
 }
 
 
@@ -55,4 +76,15 @@ a:hover {
 .todo_text {
     width: 400px;
     height: 200px;
+}
+
+.assign {
+    font-weight: bold;
+    font-size: 18px;
+    margin-top: 2rem ;
+}
+
+option {
+    width: 200px;
+    padding: 0.5rem;
 }
