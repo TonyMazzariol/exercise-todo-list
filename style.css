@@ -1,90 +1,138 @@
 body {
-    box-sizing: content-box;
+  -webkit-box-sizing: content-box;
+          box-sizing: content-box;
+  font-family: sans-serif;
+}
+
+body * {
+  border-radius: 3px;
+}
+
+textarea {
+  font-size: 16px;
 }
 
 nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: end;
+      -ms-flex-align: end;
+          align-items: flex-end;
 }
 
 nav form {
-    display: flex;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
 }
 
 nav div input {
-    width: 200px;
+  width: 200px;
+}
+
+select {
+  padding: 0.5rem;
 }
 
 .todo_text {
-    margin: 1rem;
-    padding: 1rem;
+  margin: 1rem;
+  padding: 1rem;
 }
 
 tr .text {
-    width: 60%;
+  width: 60%;
 }
 
 .list_button {
-    display: flex;
-    width: 200px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 200px;
 }
 
 a {
-    text-decoration: none;
-    margin: 1rem;
-    color: black;
+  text-decoration: none;
+  margin: 1rem;
+  color: black;
 }
 
 input {
-    border: 1px solid grey;
-    border-radius: 5px;
-    padding: 0.5rem;
-    margin: 0.5rem;
+  border: 1px solid grey;
+  border-radius: 3px;
+  padding: 0.5rem;
+  margin: 0.5rem;
 }
 
 button {
-    margin: 1rem;
-    padding: 0.5rem;
+  margin: 1rem;
+  padding: 0.5rem;
 }
 
 .add_story {
-    margin: 0.5rem 0 ;
+  margin: 0.5rem 0;
 }
 
 th {
-    border: 1px rgb(175, 175, 175) solid;
-    padding: 0.5rem;
+  border: 1px #afafaf solid;
+  padding: 0.5rem;
 }
 
-table * {
-    border-radius: 5px;
+th div {
+  font-weight: 400;
 }
 
 table {
-    width: 100%;
+  width: 100%;
 }
 
-
 button:hover,
-input:hover, 
+input:hover,
 a:hover {
-    background-color: white;
-    border-radius: 5px;
+  background-color: white;
+  border-radius: 3px;
 }
 
 .todo_text {
-    width: 400px;
-    height: 200px;
+  width: 400px;
+  height: 200px;
 }
 
 .assign {
-    font-weight: bold;
-    font-size: 18px;
-    margin-top: 2rem ;
+  font-weight: bold;
+  font-size: 18px;
+  margin: 4rem 0;
 }
 
 option {
-    width: 200px;
-    padding: 0.5rem;
+  width: 200px;
+  padding: 0.5rem;
 }
+
+.edit_users {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  width: 100%;
+  margin: 2rem 0;
+}
+
+.edit_users div {
+  padding: 0 2rem;
+  border: 1px solid grey;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  font-weight: bold;
+}
+/*# sourceMappingURL=style.css.map */

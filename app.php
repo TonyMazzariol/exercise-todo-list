@@ -11,7 +11,7 @@
     <nav>
         <div>
             <h2>TO DO LIST </h2>
-            <button class="add_story"><a href="index.php">Ajouter une User Story</a></button>
+            <button class="add_story"><a href="index.php">Ajouter un To Do</a></button>
         </div>
         <div>
         <form method="GET" action="app.php">
@@ -22,9 +22,49 @@
         </div>
     </nav>  
     <?php
+
         require'connexion.php';
+
+        // GRAB ALL
         
-        // GET NEW TASK
+        $all_todo = $mysqli->query('SELECT * FROM todo_list');
+        $all_user = $mysqli->query('SELECT * FROM user_list');
+                
+        // JOIN TABLES
+        
+        $linked = $mysqli->query("SELECT * FROM todo_list 
+        INNER JOIN link ON todo_list_id = todo_id
+        INNER JOIN user_list ON user_list_id = user_id");
+        
+    ?>
+    
+     <!-- 
+        // SHOW PAGE
+        // ASSIGN PART
+        -->        
+
+        <div class='assign'>
+            <label>Choisir une tache à assigner :</label>
+            <form method='GET' action='delete_modify.php'>
+                <select name='todo'>
+                    <?php
+                    foreach ($all_todo as $temp) {
+                        echo "<option value='{$temp['todo_list_id']}'>{$temp['todo_text']}</option>";
+                   } ?>
+                </select>
+                <label>à :</label>
+                <select name='user'>";
+                    <?php
+                        foreach ($all_user as $temp) {
+                            echo "<option value='{$temp['user_list_id']}'>{$temp['user_name']}</option>";
+                        }?>
+                </select>
+                <input type='submit' name='assign' value='Assigner une tache'>
+            </form>
+        </div> 
+
+    <?php    
+        // GET NEW TASK (FROM index.php)
         
         if(isset($_GET['todo_text']) === true){
             $id = 1;
@@ -40,7 +80,7 @@
             header("Location: app.php");
         }
         
-        // GET NEW USER
+        // GET NEW USER (from HERE)
         
         if(isset($_GET['user_add']) === true && $_GET['user_add'] != NULL ){
             $id = 1;
@@ -55,18 +95,6 @@
             $mysqli->query("INSERT INTO user_list (user_name, user_list_id) VALUES ('$value', '$id')");  
             header("Location: app.php");
         }
-        
-        // GRAB ALL
-        
-        $all_todo = $mysqli->query('SELECT * FROM todo_list');
-        $all_user = $mysqli->query('SELECT * FROM user_list');
-        
-
-        // JOIN TABLES
-
-        $a = $mysqli->query("SELECT * FROM todo_list 
-        INNER JOIN link ON todo_list_id = todo_id
-        INNER JOIN user_list ON user_list_id = user_id");
         ?>
         
         <!-- 
@@ -77,18 +105,18 @@
         <table>
         <tr>
             <th>ID</th>
-            <th colspan='3' >User Story</th>
+            <th colspan='3' >To Do</th>
         </tr>
         <?php
         foreach ($all_todo as $temp) {?> 
             <tr>
-                <th>id : <?= $temp['todo_list_id'] ?></th>
+                <th>numéro <?= $temp['todo_list_id'] ?></th>
                 <th class='text'><?= $temp['todo_text']?></th>
                 <th>
 
                 <?php
                 
-                foreach ($a as $key) {
+                foreach ($linked as $key) {
                     if ($key['todo_text'] == $temp['todo_text']) {
                         ?>
                         <div><?= $key['user_name'] ?></div>
@@ -121,8 +149,8 @@
         </form>
         <table>
             <tr>
-                <th>ID_user</th>
-                <th colspan='2' >User Name</th> 
+                <th>numéro de l'utilisateur</th>
+                <th colspan='2' >Nom de l´utilisateur</th> 
             </tr>
         <?php
         
@@ -131,7 +159,7 @@
         foreach ($all_user as $temp) {
             ?>
             <tr >
-                <th>id : <?= $temp['user_list_id'] ?></th>
+                <th><?= $temp['user_list_id'] ?></th>
                 <th><?= $temp['user_name'] ?></th>
                 <th class='list_button'>
                     <form method='GET' action='delete_modify.php'>
@@ -148,31 +176,6 @@
 
         <form method='GET' action='delete_modify.php'>
             <input type='submit' name='deleteAll_user' value='Supprimer tout'>
-        </form>
-
-        <!-- 
-        // SHOW PAGE
-        // ASSIGN PART
-        -->        
-
-        <div class='assign'>
-            <label>Choisir une tache à assigner :</label>
-            <form method='GET' action='delete_modify.php'>
-                <select name='todo'>
-                    <?php
-                    foreach ($all_todo as $temp) {
-                        echo "<option value='{$temp['todo_list_id']}'>{$temp['todo_text']}</option>";
-                   } ?>
-                </select>
-                <label>à :</label>
-                <select name='user'>";
-                    <?php
-                        foreach ($all_user as $temp) {
-                            echo "<option value='{$temp['user_list_id']}'>{$temp['user_name']}</option>";
-                        }?>
-                </select>
-                <input type='submit' name='assign' value='Assigner une tache'>
-            </form>
-        </div>  
+        </form> 
 </body>
 </html>

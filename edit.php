@@ -24,37 +24,41 @@
 
         // JOIN TABLES
 
-        $a = $mysqli->query("SELECT * FROM todo_list 
+        $linked = $mysqli->query("SELECT * FROM todo_list 
         INNER JOIN link ON todo_list_id = todo_id
         INNER JOIN user_list ON user_list_id = user_id");
         ?>
+ 
+        <!-- SHOW PAGE -->
+            
+    <div>
+    
+    <h2>To Do  <?= $id_value ?></h2>
 
-        <div>
-        <h2>User Story  <?= $id_value ?></h2>
-            <form method='GET' action='delete_modify.php'>
-                <textarea class='todo_text' name='edit_text' autocomplete='off' ><?=$temp_text?></textarea>
-
+    <div class='edit_users'>
+        <?php
+        foreach ($linked as $key) {
+            if ($key['todo_text'] == $temp_text) { ?>
+                <form action="delete_modify.php" method="GET">
                 <div>
-                    <?php
-                    foreach ($a as $key) {
-                        if ($key['todo_text'] == $temp_text) { ?>
-                            <div><?= $key['user_name'] ?></div>
-                            
-                                <input name='user_id_temp' type='hidden' value='<?=$key['user_list_id'] ?>'>
-                                <input name='todo_id_temp' type='hidden' value='<?= $key['todo_list_id'] ?>'>
-                                <input type='submit' name='delete_user_link' value='Supprimer utilisateur'>
-                                                        
-                        <?php } 
-                    } ?>
+                    <div><?= $key['user_name'] ?></div>    
+                    <input name='user_id_temp' type='hidden' value="<?=$key['user_list_id'] ?>">
+                    <input name='todo_id_temp' type='hidden' value="<?= $key['todo_list_id'] ?>">
+                    <input type='submit' name='delete_user_link' value='Supprimer utilisateur'>
                 </div>
-               
-                <input type='hidden' name='edit_text_id' value='<?=$id_value?>'>
-                
-                <input type='submit' name='confirmer' value='confirmer'>
-                <input type='reset' name='annuler' value='annuler'>                        
-                <input type='submit' name='retour' value='retour'>
-            </form>
+                </form>
+            <?php } 
+        } ?>
         </div>
+
+        <form method='GET' action='delete_modify.php'>
+            <textarea class='todo_text' name='edit_text' autocomplete='off' ><?=$temp_text?></textarea>
+            <input type='hidden' name='edit_text_id' value='<?=$id_value?>'>
+            <input type='submit' name='confirmer' value='confirmer'>
+            <input type='reset' name='annuler' value='annuler'>                        
+            <input type='submit' name='retour' value='retour'>
+        </form>
+    </div>
 </body>
 </html>
 

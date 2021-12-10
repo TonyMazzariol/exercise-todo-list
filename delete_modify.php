@@ -1,14 +1,20 @@
 <?php
 require'connexion.php';
 
+// DELETE ALL
+
 if(isset($_GET['deleteAll_todo']) === true){
     $mysqli->query("DELETE FROM todo_list");
+    $mysqli->query("DELETE FROM link");
     header("Refresh:0; url=app.php");
 };
 if(isset($_GET['deleteAll_user']) === true){
     $mysqli->query("DELETE FROM user_list");
+    $mysqli->query("DELETE FROM link");
     header("Refresh:0; url=app.php");
 };
+
+// DELETE ONE
 
 if(isset($_GET['delete_todo']) === true){
     $id_value = intval($_GET['todo_id_temp']);
@@ -24,12 +30,16 @@ if(isset($_GET['delete_user']) === true){
     header("Location: app.php");
 };
 
+// DELETE LINK BETWEEN USER AND A TASK
+
 if(isset($_GET['delete_user_link']) === true){
     $id_value = intval($_GET['user_id_temp']);
     $id_value2 = intval($_GET['todo_id_temp']);
     $mysqli->query("DELETE FROM link WHERE user_id = $id_value AND todo_id = $id_value2 ");
     header("Location: app.php");
 };
+
+// CONFIRM
 
 if(isset($_GET['confirmer']) === true){
     $id_value = $_GET['edit_text_id'];
@@ -38,12 +48,15 @@ if(isset($_GET['confirmer']) === true){
     header("Location: app.php"); 
 }; 
 
+// RETURN
+
 if(isset($_GET['retour']) === true){
     header("Location: app.php");    
 };    
            
 
 // ASSIGNING
+
 $link = $mysqli->query("SELECT * FROM link");
 
 if(isset($_GET['assign']) === true){

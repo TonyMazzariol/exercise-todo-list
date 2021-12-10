@@ -13,7 +13,7 @@
     ?>  
     <h1>TO DO List</h1>
     <div>
-        <h2>User Story</h2>
+        <h2>To Do</h2>
         <form method="GET" action="app.php">
             <textarea class="todo_text" name="todo_text" autocomplete="off"></textarea>
             <input type="submit" name="valider" value="valider">
