@@ -38,30 +38,30 @@
         
     ?>
     
-     <!-- 
-        // SHOW PAGE
-        // ASSIGN PART
-        -->        
+    <!-- 
+    // SHOW PAGE
+    // ASSIGN PART
+    -->        
 
-        <div class='assign'>
-            <label>Choisir une tache à assigner :</label>
-            <form method='GET' action='delete_modify.php'>
-                <select name='todo'>
-                    <?php
-                    foreach ($all_todo as $temp) {
-                        echo "<option value='{$temp['todo_list_id']}'>{$temp['todo_text']}</option>";
-                   } ?>
-                </select>
-                <label>à :</label>
-                <select name='user'>";
-                    <?php
-                        foreach ($all_user as $temp) {
-                            echo "<option value='{$temp['user_list_id']}'>{$temp['user_name']}</option>";
-                        }?>
-                </select>
-                <input type='submit' name='assign' value='Assigner une tache'>
-            </form>
-        </div> 
+    <div class='assign'>
+        <label>Choisir une tache à assigner :</label>
+        <form method='GET' action='delete_modify.php'>
+            <select name='todo'>
+            <?php
+                foreach ($all_todo as $temp) {
+                    echo "<option value='{$temp['todo_list_id']}'>{$temp['todo_text']}</option>";
+                }?>
+            </select>
+            <label>à :</label>
+            <select name='user'>
+            <?php
+                foreach ($all_user as $temp) {
+                    echo "<option value='{$temp['user_list_id']}'>{$temp['user_name']}</option>";
+                }?>
+            </select>
+            <input type='submit' name='assign' value='Assigner une tache'>
+        </form>
+    </div> 
 
     <?php    
         // GET NEW TASK (FROM index.php)
@@ -99,7 +99,7 @@
         
         <!-- 
         // SHOW PAGE
-        // TAB ALL TAKS
+        // TAB ALL TASK
         -->
 
         <table>
@@ -108,24 +108,19 @@
             <th colspan='3' >To Do</th>
         </tr>
         <?php
-        foreach ($all_todo as $temp) {?> 
+        foreach ($all_todo as $temp) { ?> 
             <tr>
                 <th>numéro <?= $temp['todo_list_id'] ?></th>
                 <th class='text'><?= $temp['todo_text']?></th>
                 <th>
-
                 <?php
-                
-                foreach ($linked as $key) {
-                    if ($key['todo_text'] == $temp['todo_text']) {
-                        ?>
-                        <div><?= $key['user_name'] ?></div>
-                        <?php
-                    }   
-                }
-
-                ?>
-
+                    foreach ($linked as $key) {
+                        if ($key['todo_text'] == $temp['todo_text']) {
+                            ?>
+                            <div><?= $key['user_name'] ?></div>
+                            <?php
+                        }   
+                    }?>
                 </th>
                 <th class='list_button'>
                     <form method='GET' action='delete_modify.php'>
@@ -139,37 +134,34 @@
                 </th>
             </tr>
             <?php
-            };?>
+            }?>
         </table>
-            
-        <br>
-
         <form method='GET' action='delete_modify.php'>
             <input type='submit' name='deleteAll_todo' value='Supprimer tout'>
         </form>
+
+        <!-- // TAB ALL USER -->
+        
         <table>
             <tr>
                 <th>numéro de l'utilisateur</th>
-                <th colspan='2' >Nom de l´utilisateur</th> 
+                <th colspan='1' >Nom de l´utilisateur</th> 
             </tr>
-        <?php
-        
-        // TAB ALL USER
-        
-        foreach ($all_user as $temp) {
-            ?>
-            <tr >
-                <th><?= $temp['user_list_id'] ?></th>
-                <th><?= $temp['user_name'] ?></th>
-                <th class='list_button'>
-                    <form method='GET' action='delete_modify.php'>
-                        <input name='user_id_temp' type='hidden' value="<?= $temp['user_list_id']?>">
-                        <input type='submit' name='delete_user' value='Supprimer'>
-                    </form>
-                </th>
-            </tr>
-            <?php    
-        };?>
+                <?php
+                foreach ($all_user as $temp) {?>
+                <tr>
+                    <th><?= $temp['user_list_id']?></th>
+                    <th><?= $temp['user_name']?></th>
+                    <th class='list_button'>
+                        <form method='GET' action='delete_modify.php'>
+                            <input name='user_id_temp' type='hidden' value="<?= $temp['user_list_id']?>">
+                            <input type='submit' name='delete_user' value='Supprimer'>
+                        </form>
+                    </th>
+                </tr>
+                <?php    
+                }?>
+            
         </table>
             
         <br>
