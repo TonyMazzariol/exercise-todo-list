@@ -26,10 +26,22 @@ if(isset($_GET['delete_user']) === true){
 
 if(isset($_GET['delete_user_link']) === true){
     $id_value = intval($_GET['user_id_temp']);
-    $mysqli->query("DELETE FROM link WHERE user_id = $id_value ");
+    $id_value2 = intval($_GET['todo_id_temp']);
+    $mysqli->query("DELETE FROM link WHERE user_id = $id_value AND todo_id = $id_value2 ");
     header("Location: app.php");
 };
 
+if(isset($_GET['confirmer']) === true){
+    $id_value = $_GET['edit_text_id'];
+    $edit_text = $_GET['edit_text'];
+    $mysqli->query("UPDATE todo_list SET todo_text = '$edit_text' WHERE todo_list_id = $id_value");  
+    header("Location: app.php"); 
+}; 
+
+if(isset($_GET['retour']) === true){
+    header("Location: app.php");    
+};    
+           
 
 // ASSIGNING
 $link = $mysqli->query("SELECT * FROM link");
